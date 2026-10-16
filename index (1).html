@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>maakoulaty · مأكولاتي</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap" id="app">
+  <header>
+    <div>
+      <div class="brand"><b>maakoulaty</b><span lang="ar" dir="rtl">مأكولاتي</span></div>
+      <h1 style="font-size:1.05rem;font-weight:600" data-i18n="title">Évaluation des repas</h1>
+      <p data-i18n="subtitle">Votre avis aide à améliorer la restauration de la cité.</p>
+    </div>
+    <div class="lang" role="group" aria-label="Langue / اللغة">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="ar" aria-pressed="false">عربي</button>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" data-view="rate" aria-selected="true" data-i18n="tabRate">Évaluer</button>
+    <button type="button" role="tab" data-view="dash" aria-selected="false" data-i18n="tabDash">Tableau de bord</button>
+  </div>
+
+  <form id="form" novalidate>
+    <!-- Identification -->
+    <section class="card">
+      <h2 data-i18n="idTitle">Mon identification</h2>
+      <label class="f"><span data-i18n="name">Nom et prénom</span>
+        <input type="text" name="name" autocomplete="name" required>
+      </label>
+      <label class="f"><span data-i18n="card">N° d'inscription / carte d'étudiant</span>
+        <input type="text" name="card" inputmode="numeric" pattern="[0-9A-Za-z/\-]*" required>
+      </label>
+      <div class="row">
+        <label class="f"><span data-i18n="room">N° de chambre</span>
+          <input type="text" name="room" required>
+        </label>
+        <label class="f"><span data-i18n="pavilion">Pavillon</span>
+          <input type="text" name="pavilion" required>
+        </label>
+      </div>
+      <label class="f"><span data-i18n="residence">Cité universitaire</span>
+        <select name="residence" required>
+          <option value="" data-i18n="choose">— Choisir —</option>
+          <option value="zoubida-habib">Zoubida Habib</option>
+          <option value="zedour-brahim">Zedour Brahim</option>
+          <option value="belgaid-1">Belgaïd 1</option>
+          <option value="belgaid-2">Belgaïd 2</option>
+        </select>
+      </label>
+    </section>
+
+    <!-- Repas (générés par JS) -->
+    <div id="meals"></div>
+
+    <!-- Commentaire -->
+    <section class="card">
+      <h2 data-i18n="commentTitle">Une remarque ou suggestion ? (facultatif)</h2>
+      <textarea name="comment" maxlength="200" rows="3" data-i18n-ph="commentPh" placeholder="Écrivez en quelques mots…"></textarea>
+      <div class="counter"><span id="count">0</span>/200</div>
+    </section>
+
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="err" id="err" role="alert"></p>
+    <button class="submit" type="submit" data-i18n="submit">Soumettre mon évaluation</button>
+  </form>
+
+  <section class="card thanks" id="thanks" aria-live="polite">
+    <div class="big">✅</div>
+    <h2 data-i18n="thanksTitle">Merci, évaluation envoyée !</h2>
+    <p data-i18n="thanksText">Votre avis a bien été enregistré.</p>
+    <button type="button" id="again" data-i18n="again">Nouvelle évaluation</button>
+  </section>
+
+  <!-- Tableau de bord -->
+  <section class="dash" id="dash">
+    <div class="dash-top">
+      <select id="dCite" aria-label="Cité"></select>
+      <span class="badge" id="dMode"></span>
+      <a class="sheet" id="sheetLink" target="_blank" rel="noopener" hidden data-i18n="dSheet">Graphiques Google Sheets</a>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="kTotal">0</b><span data-i18n="dTotal">Évaluations reçues</span></div>
+      <div class="kpi"><b id="kAvg">–</b><span data-i18n="dAvg">Note moyenne /3</span></div>
+      <div class="kpi"><b id="kGood">–</b><span data-i18n="dGood">Avis 😍</span></div>
+    </div>
+    <section class="card"><h2 data-i18n="dByMeal">Opinions par repas</h2><div id="dMeals"></div></section>
+    <section class="card"><h2 data-i18n="dByCite">Satisfaction par cité</h2><div id="dCites"></div></section>
+    <section class="card"><h2 data-i18n="dComments">Dernières remarques</h2><div id="dCm"></div></section>
+  </section>
+</div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
